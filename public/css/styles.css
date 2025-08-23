@@ -1,0 +1,64 @@
+.playwrite-ca-regular {
+  font-family: "Playwrite CA", cursive;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: bold;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.header{
+    border-bottom: 2px solid rgb(155, 155, 155);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    height: 50px;
+    width: 70%;
+}
+#search{
+    padding: 5px 8px;
+    border-radius: 20px;
+    border: 1px solid rgb(155, 155, 155);
+}
+#search:hover{
+    border-color: black;
+}
+#searchbar{
+    width: 200px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+}
+#searchbar::-webkit-search-cancel-button{
+    -webkit-appearance: none;
+    appearance: none;
+}
+#searchbtn{
+    padding: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+#searchbtn:hover{
+    color: rgb(155, 155, 155);
+}
+#writebtn{
+    border: none;
+    background: none;
+    font-size: large;
+    color: rgb(155, 155, 155);
+    cursor: pointer;
+}
+#writebtn:hover{
+    color: black;
+}
+
+.footer{
+    border-top: 2px solid rgb(155, 155, 155);
+    width: 70%;
+    padding: 10px;
+}
