@@ -17,7 +17,7 @@ body{
     justify-content: space-between;
     padding: 10px;
     height: 50px;
-    width: 70%;
+    width: 80%;
 }
 #search{
     padding: 5px 8px;
@@ -46,7 +46,7 @@ body{
 #searchbtn:hover{
     color: rgb(155, 155, 155);
 }
-#writebtn{
+.writebtn{
     border: none;
     background: none;
     font-size: large;
@@ -56,9 +56,43 @@ body{
 #writebtn:hover{
     color: black;
 }
+.signbtn{
+    background: none;
+    border: 1px solid black;
+    border-radius: 20px;
+    font-size: 15px;
+    /* margin: 0 10px; */
+    padding:4px 8px;
+    cursor: pointer;
+}
+.signbtn:hover{
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+}
+.footer {
+  width: 80%;
+  border-top: 2px solid rgb(155, 155, 155);
+  background: #222;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 1rem;
+}
 
-.footer{
-    border-top: 2px solid rgb(155, 155, 155);
-    width: 70%;
-    padding: 10px;
+.footer a {
+  color: #ffd700;
+  text-decoration: none;
+  margin: 0 8px;
+  transition: color 0.2s;
+}
+
+.footer a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.footer div {
+  margin: 5px 0;
 }

@@ -20,13 +20,13 @@ app.get("/",(req,res)=>{
     res.render("home.ejs");
 })
 
-app.get("/signin",(req,res)=>{
-    res.render("user/signin.ejs");
-})
+// app.get("/signin",(req,res)=>{
+//     res.render("user/signin.ejs");
+// })
 
-app.get("/signup", (req,res)=>{
-    res.render("user/signup.ejs");
-})
+// app.get("/signup", (req,res)=>{
+//     res.render("user/signup.ejs");
+// })
 
 app.listen(3000,()=>{
     console.log("App is listening at port 3000");
