@@ -1,0 +1,33 @@
+<% layout('./layouts/boilerplate') %>
+
+    <div class="new-article-container">
+        <form action="/articles/new" method="post" enctype="multipart/form-data">
+            <!-- Header -->
+            <h1 class="playwrite-ca-regular story">Wryte</h1>
+
+            <!-- Title -->
+            <div class="form-group">
+                <label for="title">Title <span aria-hidden="true">*</span></label>
+                <input type="text" id="title" name="title" class="txtfield" placeholder="Enter article title" required>
+            </div>
+
+            <!-- Image Upload -->
+            <div class="form-group">
+                <label for="image">Select Image</label>
+                <input type="file" id="image" name="image" accept="image/*" required>
+            </div>
+
+            <!-- Description -->
+            <div class="form-group">
+                <label for="description">Description <span aria-hidden="true">*</span></label>
+                <textarea id="description" name="description" class="txtfield" rows="10"
+                    placeholder="Write your article description here..." required></textarea>
+            </div>
+
+            <!-- Submit -->
+            <div class="form-group publish">
+                <button type="submit" class="btn-primary">Publish</button>
+            </div>
+        </form>
+
+    </div>

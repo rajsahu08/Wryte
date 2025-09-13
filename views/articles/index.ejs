@@ -1,0 +1,14 @@
+<% layout('layouts/boilerplate') -%>
+    <div class="articles-container">
+        <% articles.forEach(article=> { %>
+            <div class="article-card">
+                <h2 class="article-title">
+                    <%= article.title %>
+                </h2>
+                <img src="<%=article.image.url %>">
+                <p class="article-description">
+                    <%= article.description %>
+                </p>
+            </div>
+            <% }) %>
+    </div>

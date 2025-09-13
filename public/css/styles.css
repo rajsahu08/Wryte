@@ -5,7 +5,7 @@
   font-style: bold;
 }
 
-body{
+.page{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -79,6 +79,8 @@ body{
   text-align: center;
   font-family: sans-serif;
   font-size: 1rem;
+  position: fixed;
+  bottom: 0;
 }
 
 .footer a {
@@ -86,6 +88,7 @@ body{
   text-decoration: none;
   margin: 0 8px;
   transition: color 0.2s;
+  
 }
 
 .footer a:hover {
@@ -95,4 +98,77 @@ body{
 
 .footer div {
   margin: 5px 0;
+}
+
+/* --- Article Cards Container --- */
+.articles-container {
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    margin: 2rem 0;
+
+}
+
+/* --- Individual Article Card --- */
+.article-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 2rem;
+    max-width: 350px;
+    min-width: 280px;
+    flex: 1 1 300px;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.2s;
+}
+
+/* --- Card Hover Effect --- */
+.article-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+/* --- Article Title --- */
+.article-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-family:  serif;
+    color: #222;
+}
+
+/* --- Article Description --- */
+.article-description {
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.6;
+}
+
+/* --- Responsive Design for Cards --- */
+@media (max-width: 800px) {
+    .articles-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .article-card {
+        max-width: 95vw;
+    }
+}
+
+/* --- End of Article Cards Styles --- */
+
+/* Style for New Article Form */
+.new-article-container {
+    border: 2px solid black;
+    margin: 2rem;
+    /* width: 80%;
+    max-width: 600px;
+    
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; */
 }
