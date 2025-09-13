@@ -1,16 +1,23 @@
 <header class="header">
     <div>
-        <h1 class="playwrite-ca-regular">Wryte</h1>
+        <a href="/" style="color: black; text-decoration: none;">
+            <h1 class="playwrite-ca-regular">Wryte</h1>
+        </a>
     </div>
-    <form id="search">
-        <input type="search" name="query" placeholder="Search articles..." id="searchbar">
-        <button type="submit" id="searchbtn"><i class="fa-solid fa-magnifying-glass"></i></button>
+    <form id="search" role="search">
+        <label for="searchbar" class="sr-only">Search articles</label>
+        <input type="search" name="query" id="searchbar" placeholder="Search articles...">
+        <button type="submit" id="searchbtn" aria-label="Search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
     </form>
-    <div>
+    <nav class="header-nav">
         <form action="/articles/new" method="get">
-            <button class="writebtn"><i class="fa-solid fa-pen-to-square"></i>&nbsp;Write</button>
+            <button class="writebtn" aria-label="Write a new article">
+                <i class="fa-solid fa-pen-to-square"></i>&nbsp;Write
+            </button>
         </form>
-        <button id="openSigninModal" class="signbtn">Sign in</button>
-        <button id="openSignupModal" class="signbtn">Sign up</button>
-    </div>
+        <button id="openSigninModal" class="signbtn" aria-label="Sign in to your account">Sign in</button>
+        <button id="openSignupModal" class="signbtn" aria-label="Create a new account">Sign up</button>
+    </nav>
 </header>

@@ -1,0 +1,34 @@
+<% layout('./layouts/boilerplate') %>
+
+    <div class="article-show-container">
+        <!-- Article Title -->
+        <h1 class="article-show-title">
+            <%= article.title %>
+        </h1>
+
+        <!-- Article Image -->
+        <% if (article.image && article.image.url) { %>
+            <div class="article-show-image">
+                <img src="<%= article.image.url %>" alt="<%= article.title %>">
+            </div>
+            <% } %>
+
+                <!-- Article Content -->
+                <div class="article-show-description">
+                    <p>
+                        <%= article.description %>
+                    </p>
+                </div>
+
+                <!-- Back Button -->
+                <div class="article-show-actions">
+                    <div>
+                        <a href="/" class="btn-primary" style="margin-right: 15px;">Edit</a>
+                        <a href="/" class="btn-primary" style="background-color: rgba(255, 56, 56, 0.816);">Delete</a>
+                    </div>
+                    <div>
+                        <a href="/" class="btn-primary">← Back</a>
+                    </div>
+
+                </div>
+    </div>

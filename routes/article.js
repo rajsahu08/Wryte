@@ -8,4 +8,6 @@ const upload = multer({ storage });
 router.get('/new',articleController.renderNewForm);
 router.post('/new', upload.single('image'), articleController.createArticle);
 
+router.get('/:id', articleController.showArticle);
+
 module.exports = router;

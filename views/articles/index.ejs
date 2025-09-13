@@ -1,14 +1,18 @@
 <% layout('layouts/boilerplate') -%>
     <div class="articles-container">
         <% articles.forEach(article=> { %>
-            <div class="article-card">
-                <h2 class="article-title">
-                    <%= article.title %>
-                </h2>
-                <img src="<%=article.image.url %>">
-                <p class="article-description">
-                    <%= article.description %>
-                </p>
-            </div>
+            <a href="/articles/<%= article._id %>" class="article-link">
+                <div class="article-card">
+                    <h2 class="article-title">
+                        <%= article.title %>
+                    </h2>
+                    <div class="article-image">
+                        <img src="<%=article.image.url %>">
+                    </div>
+                    <p class="article-description">
+                        <%= article.description %>
+                    </p>
+                </div>
+            </a>
             <% }) %>
     </div>
