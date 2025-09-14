@@ -9,5 +9,9 @@ router.get('/new',articleController.renderNewForm);
 router.post('/new', upload.single('image'), articleController.createArticle);
 
 router.get('/:id', articleController.showArticle);
+router.delete('/:id', articleController.destroyArticle);
+router.put('/:id', upload.single('image'), articleController.updateArticle);
+
+router.get('/:id/edit', articleController.renderEditForm);
 
 module.exports = router;

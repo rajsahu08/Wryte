@@ -1,0 +1,184 @@
+<% layout('./layouts/boilerplate') %>
+
+    <div class="new-article-container edit-article-container">
+        <form action="/articles/<%= article._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+
+            <input type="hidden" name="existingImage" id="existingImage"
+                value="<%= article.image ? article.image.url : '' %>">
+            <input type="hidden" name="removeImage" id="removeImage" value="false">
+
+            <!-- Header -->
+            <h1 class="story">Edit Article</h1>
+
+            <!-- Title -->
+            <div class="form-group animate">
+                <label for="title">
+                    Title <span class="required-asterisk" aria-hidden="true">*</span>
+                </label>
+                <input type="text" id="title" name="title" class="txtfield" placeholder="Update the article title..."
+                    required maxlength="100" value="<%= article.title %>">
+            </div>
+
+            <!-- Image Upload / Current image -->
+            <div class="form-group animate">
+                <label for="image">Featured Image</label>
+
+                <!-- Current image preview (if exists) -->
+                <% if (article.image && article.image.url) { %>
+                    <div id="current-image-preview" class="current-image-preview">
+                        <div class="preview-container">
+                            <img src="<%= article.image.url %>" alt="Current featured image" class="preview-image">
+                        </div>
+                        <div class="image-actions">
+                            <button type="button" id="remove-current-btn" class="remove-image"
+                                title="Remove current image">×</button>
+                            <div class="image-fineprint">Current image — upload a new one to replace it</div>
+                        </div>
+                    </div>
+                    <% } %>
+
+                        <div class="file-input-wrapper">
+                            <input type="file" id="image" name="image" accept="image/*" class="file-input">
+                            <label for="image" class="file-input-label">
+                                <div>
+                                    <svg class="file-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                    <span class="file-text">Click to browse</span>
+                                    <span class="file-subtext">Supports JPG, PNG, GIF up to 10MB</span>
+                                </div>
+                            </label>
+                            <div id="image-preview" class="image-preview"></div>
+                        </div>
+            </div>
+
+            <!-- Description/Content -->
+            <div class="form-group animate">
+                <label for="description">
+                    Article Content <span class="required-asterisk" aria-hidden="true">*</span>
+                </label>
+                <textarea id="description" name="description" class="txtfield" rows="12"
+                    placeholder="Update your story..." required><%= article.description %></textarea>
+            </div>
+
+            <!-- Actions -->
+            <div class="form-group publish action-row">
+                <a href="/articles/<%= article._id %>" class="btn-cancel" role="button" aria-label="Cancel">Cancel</a>
+                <button type="submit" class="btn-primary">Save Changes</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const inputs = document.querySelectorAll('input[type="text"], textarea');
+            const form = document.querySelector('form');
+            const imageInput = document.getElementById('image');
+            const imagePreview = document.getElementById('image-preview');
+            const existingImageInput = document.getElementById('existingImage');
+            const removeImageInput = document.getElementById('removeImage');
+            const currentPreview = document.getElementById('current-image-preview');
+            const removeCurrentBtn = document.getElementById('remove-current-btn');
+
+            // Animate form groups on load (re-using existing animation)
+            const formGroups = document.querySelectorAll('.form-group');
+            formGroups.forEach((group, index) => {
+                setTimeout(() => {
+                    group.style.opacity = '1';
+                    group.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+
+            // Input focus interactions
+            inputs.forEach(input => {
+                input.addEventListener('focus', function () {
+                    this.parentElement.classList.add('focused');
+                    if (this.classList.contains('txtfield')) this.style.transform = 'translateY(-2px)';
+                });
+
+                input.addEventListener('blur', function () {
+                    this.parentElement.classList.remove('focused');
+                    if (this.classList.contains('txtfield')) this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // When user selects a new image file: show preview and mark that existing image is no longer kept
+            imageInput.addEventListener('change', function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    // Clear "remove" flag because new file will replace existing image
+                    removeImageInput.value = 'false';
+                    existingImageInput.value = '';
+
+                    // Remove current preview (if present)
+                    if (currentPreview) currentPreview.style.display = 'none';
+
+                    const reader = new FileReader();
+                    reader.onload = function (ev) {
+                        imagePreview.innerHTML = `
+            <div class="preview-container">
+              <img src="${ev.target.result}" alt="New preview" class="preview-image">
+              <button type="button" class="remove-image" id="remove-new-btn" title="Remove selected image">×</button>
+            </div>
+          `;
+                        // wire up remove for newly selected image
+                        const removeNewBtn = document.getElementById('remove-new-btn');
+                        removeNewBtn && removeNewBtn.addEventListener('click', removeSelectedImage);
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    // if user cleared the input, allow existing image to show again
+                    imagePreview.innerHTML = '';
+                    if (currentPreview) currentPreview.style.display = '';
+                }
+            });
+
+            // Remove existing image (user clicked the '×' next to current image)
+            if (removeCurrentBtn) {
+                removeCurrentBtn.addEventListener('click', function () {
+                    // mark to remove on server
+                    removeImageInput.value = 'true';
+                    existingImageInput.value = '';
+                    // hide current preview and clear file input & new preview
+                    if (currentPreview) currentPreview.style.display = 'none';
+                    imageInput.value = '';
+                    imagePreview.innerHTML = '';
+                });
+            }
+
+            // Remove newly selected image preview
+            function removeSelectedImage() {
+                imageInput.value = '';
+                imagePreview.innerHTML = '';
+                // if there was a current image, show it back
+                if (existingImageInput.value && currentPreview) {
+                    currentPreview.style.display = '';
+                } else {
+                    // nothing left
+                    removeImageInput.value = 'true';
+                }
+            }
+
+            // Form validation (same rules as create)
+            form.addEventListener('submit', function (e) {
+                const title = document.getElementById('title').value.trim();
+                const description = document.getElementById('description').value.trim();
+
+                if (title.length < 3) {
+                    e.preventDefault();
+                    alert('Title must be at least 3 characters long');
+                    document.getElementById('title').focus();
+                    return;
+                }
+
+                if (description.length < 50) {
+                    e.preventDefault();
+                    alert('Article content must be at least 50 characters long');
+                    document.getElementById('description').focus();
+                    return;
+                }
+            });
+        });
+    </script>

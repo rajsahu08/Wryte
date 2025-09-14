@@ -716,3 +716,111 @@ textarea::-webkit-scrollbar-thumb:hover {
     text-decoration: none;
     display: inline-block;
 }
+/* =========================
+   Edit form tweaks (extends existing form styles)
+   Append to styles.css
+   ========================= */
+
+.edit-article-container {
+    /* reuse dimensions of .new-article-container and allow slightly more vertical space */
+    width: 65%;
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 1.5rem;
+    height: auto;
+    background: rgba(255,255,255,0.98);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+/* Current image preview row */
+.current-image-preview {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 0.5rem;
+}
+
+.current-image-preview .preview-container {
+    flex-shrink: 0;
+    width: auto;
+    max-height: 120px;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.current-image-preview img.preview-image {
+    display: block;
+    height: 100%;
+    width: auto;
+    max-height: 120px;
+}
+
+/* Extra small caption / hint near current image */
+.image-fineprint {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 6px;
+}
+
+/* Action row (Save + Cancel) — align nicely */
+.action-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* Cancel button that visually pairs with .btn-primary */
+.btn-cancel {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.25rem;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    background: transparent;
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.15s ease;
+}
+
+.btn-cancel:hover,
+.btn-cancel:focus {
+    background: #f5f5f5;
+    border-color: #ccc;
+    color: #111;
+}
+
+/* Make sure remove-image buttons near current image remain compact and accessible */
+.current-image-preview .remove-image,
+#image-preview .remove-image {
+    width: 28px;
+    height: 28px;
+    top: 6px;
+    right: 6px;
+    font-size: 16px;
+}
+
+/* When container is narrow, stack action buttons */
+@media (max-width: 480px) {
+    .action-row {
+        flex-direction: column-reverse;
+        width: 100%;
+    }
+
+    .btn-primary {
+        width: 100%;
+    }
+
+    .btn-cancel {
+        width: 100%;
+        margin-bottom: 6px;
+    }
+}
