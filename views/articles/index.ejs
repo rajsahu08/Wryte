@@ -1,18 +1,27 @@
 <% layout('layouts/boilerplate') -%>
-    <div class="articles-container">
-        <% articles.forEach(article=> { %>
-            <a href="/articles/<%= article._id %>" class="article-link">
-                <div class="article-card">
-                    <h2 class="article-title">
-                        <%= article.title %>
-                    </h2>
-                    <div class="article-image">
-                        <img src="<%=article.image.url %>">
-                    </div>
-                    <p class="article-description">
-                        <%= article.description %>
-                    </p>
-                </div>
-            </a>
-            <% }) %>
-    </div>
+    <% if (query) { %>
+        <h2 style="text-align: center; margin-top: 1rem;">Search results for "<%= query %>"</h2>
+        <br>
+        <% } %>
+            <div class="articles-container">
+
+                <% if (articles.length===0) { %>
+                    <p>No articles found.</p>
+                    <% } else { %>
+                        <% articles.forEach(article=> { %>
+                            <a href="/articles/<%= article._id %>" class="article-link">
+                                <div class="article-card">
+                                    <h2 class="article-title">
+                                        <%= article.title %>
+                                    </h2>
+                                    <div class="article-image">
+                                        <img src="<%= article.image.url %>">
+                                    </div>
+                                    <p class="article-description">
+                                        <%= article.description %>
+                                    </p>
+                                </div>
+                            </a>
+                            <% }) %>
+                                <% } %>
+            </div>

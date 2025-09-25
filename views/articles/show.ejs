@@ -20,21 +20,14 @@
                     </p>
                 </div>
 
-                <!-- Back Button -->
+                <!-- Actions -->
                 <div class="article-show-actions">
-                    <div style="display: flex;">
-                        <div style="margin-right: 15px;">
-                            <button class="btn-primary"><a href="/articles/<%= article._id %>/edit"
-                                    style="color: white; text-decoration: none;">Edit</a></button>
-                        </div>
-                        <form action="/articles/<%= article._id%>?_method=DELETE" method="post">
-                            <button class="btn-primary" type="submit"
-                                style="background-color: rgba(255, 56, 56, 0.816);">Delete</button>
+                    <div class="action-group">
+                        <a href="/articles/<%= article._id %>/edit" class="btn-primary">Edit</a>
+                        <form action="/articles/<%= article._id %>?_method=DELETE" method="post">
+                            <button type="submit" class="btn-delete">Delete</button>
                         </form>
                     </div>
-                    <div>
-                        <a href="/" class="btn-primary">← Back</a>
-                    </div>
-
+                    <a href="/" class="btn-primary">← Back</a>
                 </div>
     </div>
