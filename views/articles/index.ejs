@@ -14,6 +14,12 @@
                                     <h2 class="article-title">
                                         <%= article.title %>
                                     </h2>
+                                    <% if (article.author) { %>
+                                        <div class="article-meta">
+                                            <span class="article-author">By <%= article.author.firstName %> <%= article.author.lastName %></span>
+                                            <span class="article-date"><%= article.createdAt ? article.createdAt.toLocaleDateString() : 'Recently' %></span>
+                                        </div>
+                                    <% } %>
                                     <div class="article-image">
                                         <img src="<%= article.image.url %>">
                                     </div>

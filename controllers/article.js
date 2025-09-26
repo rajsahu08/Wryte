@@ -32,7 +32,8 @@ module.exports.createArticle =  async(req,res)=>{
         // Create new article object
         const newArticle = new article({
             title,
-            description
+            description,
+            author: req.user._id
         });
         
         // Add image data if file was uploaded
@@ -43,17 +44,19 @@ module.exports.createArticle =  async(req,res)=>{
             };
         }
         await newArticle.save();
+        req.flash('success', 'Article created successfully!');
         res.redirect('/');
 }
 
 module.exports.showArticle = async(req,res)=>{
     let {id} = req.params;
-    const foundarticle = await article.findById(id);
+    const foundarticle = await article.findById(id).populate('author');
     res.render("./articles/show",{article:foundarticle});
 }
 
 module.exports.destroyArticle = async(req,res)=>{
     let {id} = req.params;
     await article.findByIdAndDelete(id);
+    req.flash('success', 'Article deleted successfully!');
     res.redirect("/");
 }

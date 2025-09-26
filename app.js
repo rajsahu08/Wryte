@@ -11,7 +11,11 @@ const article = require("./models/article");
 const methodOverride = require("method-override");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
+const flash = require('connect-flash');
 const articleRouter = require("./routes/article");
+const authRouter = require("./routes/auth");
+const passport = require('passport');
+require('./passport-config');
 
 app.engine('ejs', engine);
 app.set("view engine", "ejs");
@@ -34,7 +38,15 @@ app.use(session({
         maxAge: 1000 * 60 * 60 * 24 * 7
     },
 }))
-
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+});
 //Connecting to MongoDB Atlas
 const MONGO_URL = process.env.ATLAS_DB_URL;
 
@@ -50,7 +62,7 @@ async function main() {
 
 //Home Route
 app.get("/", async (req, res) => {
-    const articles = await article.find({});
+    const articles = await article.find({}).populate('author');
     res.render("./articles/index.ejs", { articles, query: "" });
 })
 // Add this below your existing routes in app.js
@@ -58,7 +70,7 @@ app.get("/search", async (req, res) => {
     const { query } = req.query; // Get the search query from the URL
     if (!query) {
         // If no query is provided, render the index with all articles or an empty result
-        const articles = await article.find({});
+        const articles = await article.find({}).populate('author');
         return res.render("./articles/index.ejs", { articles, query: "" });
     }
 
@@ -68,11 +80,12 @@ app.get("/search", async (req, res) => {
             { title: { $regex: query, $options: "i" } },
             { description: { $regex: query, $options: "i" } }
         ]
-    });
+    }).populate('author');
 
     res.render("./articles/index.ejs", { articles, query });
 });
 app.use("/articles", articleRouter);
+app.use("/", authRouter);
 
 app.listen(3000, '0.0.0.0', () => {
     console.log("App is listening at port 3000");

@@ -5,6 +5,14 @@
         <h1 class="article-show-title">
             <%= article.title %>
         </h1>
+        
+        <!-- Author Information -->
+        <% if (article.author) { %>
+            <div class="article-author">
+                <p>By <strong><%= article.author.firstName %> <%= article.author.lastName %></strong></p>
+                <p class="article-date">Published on <%= article.createdAt ? article.createdAt.toLocaleDateString() : 'Recently' %></p>
+            </div>
+        <% } %>
 
         <!-- Article Image -->
         <% if (article.image && article.image.url) { %>
@@ -22,12 +30,14 @@
 
                 <!-- Actions -->
                 <div class="article-show-actions">
-                    <div class="action-group">
-                        <a href="/articles/<%= article._id %>/edit" class="btn-primary">Edit</a>
-                        <form action="/articles/<%= article._id %>?_method=DELETE" method="post">
-                            <button type="submit" class="btn-delete">Delete</button>
-                        </form>
-                    </div>
+                    <% if (currentUser && article.author && currentUser._id.equals(article.author._id)) { %>
+                        <div class="action-group">
+                            <a href="/articles/<%= article._id %>/edit" class="btn-primary">Edit</a>
+                            <form action="/articles/<%= article._id %>?_method=DELETE" method="post">
+                                <button type="submit" class="btn-delete">Delete</button>
+                            </form>
+                        </div>
+                    <% } %>
                     <a href="/" class="btn-primary">← Back</a>
                 </div>
     </div>

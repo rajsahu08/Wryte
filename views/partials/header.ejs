@@ -17,7 +17,15 @@
                 <i class="fa-solid fa-pen-to-square"></i>&nbsp;Write
             </button>
         </form>
-        <button id="openSigninModal" class="signbtn" aria-label="Sign in to your account">Sign in</button>
-        <button id="openSignupModal" class="signbtn" aria-label="Create a new account">Sign up</button>
+        
+        <% if (currentUser) { %>
+            <span class="user-info">Welcome, <%= currentUser.firstName %>!</span>
+            <form action="/logout" method="post" style="display: inline;">
+                <button type="submit" class="signbtn">Logout</button>
+            </form>
+        <% } else { %>
+            <a href="/login" class="signbtn">Sign in</a>
+            <a href="/register" class="signbtn">Sign up</a>
+        <% } %>
     </nav>
 </header>
